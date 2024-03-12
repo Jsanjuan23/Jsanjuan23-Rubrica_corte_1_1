@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Principal = () => {
   const [products, setProducts] = useState([
@@ -8,6 +8,11 @@ const Principal = () => {
 
   const [newProductName, setNewProductName] = useState('');
   const [editingProduct, setEditingProduct] = useState(null);
+
+  // Corregido: Importado el hook useEffect
+  useEffect(() => {
+    setEditingProduct(null);
+  }, []);
 
   const handleAddProduct = () => {
     const newProduct = {
