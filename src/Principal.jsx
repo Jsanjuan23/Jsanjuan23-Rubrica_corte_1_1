@@ -8,8 +8,8 @@ const Principal = () => {
 
   const [newProductName, setNewProductName] = useState('');
   const [editingProduct, setEditingProduct] = useState(null);
+  const [updateMessage, setUpdateMessage] = useState('');
 
-  // Corregido: Importado el hook useEffect
   useEffect(() => {
     setEditingProduct(null);
   }, []);
@@ -21,25 +21,33 @@ const Principal = () => {
     };
     setProducts([...products, newProduct]);
     setNewProductName('');
+    setUpdateMessage('Producto agregado exitosamente.');
   };
 
   const handleUpdateProduct = () => {
-    const updatedProducts = products.map(product =>
-      product.id === editingProduct.id ? { ...product, name: newProductName } : product
-    );
-    setProducts(updatedProducts);
-    setNewProductName('');
-    setEditingProduct(null);
+    if (editingProduct) {
+      const updatedProducts = products.map(product =>
+        product.id === editingProduct.id ? { ...product, name: newProductName } : product
+      );
+      setProducts(updatedProducts);
+      setNewProductName('');
+      setEditingProduct(null);
+      setUpdateMessage('Producto actualizado exitosamente.');
+    } else {
+      setUpdateMessage('Por favor, seleccione un registro para actualizar.');
+    }
   };
 
   const handleEditProduct = product => {
     setEditingProduct(product);
     setNewProductName(product.name);
+    setUpdateMessage(''); // Limpiar el mensaje al seleccionar un registro para editar.
   };
 
   const handleDeleteProduct = productId => {
     const updatedProducts = products.filter(product => product.id !== productId);
     setProducts(updatedProducts);
+    setUpdateMessage('Producto eliminado exitosamente.');
   };
 
   return (
@@ -81,6 +89,7 @@ const Principal = () => {
               value={newProductName}
               onChange={e => setNewProductName(e.target.value)}
             />
+            {updateMessage && <p className="text-muted">{updateMessage}</p>}
             {editingProduct ? (
               <button className="btn btn-primary" onClick={handleUpdateProduct}>
                 Actualizar Producto
