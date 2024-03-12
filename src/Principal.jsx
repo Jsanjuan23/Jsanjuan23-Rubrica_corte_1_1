@@ -73,7 +73,10 @@ const Principal = () => {
                   onClick={() => handleEditProduct(product)}
                   onMouseEnter={() => setHoveredRow(product.id)}
                   onMouseLeave={() => setHoveredRow(null)}
-                  style={{ backgroundColor: hoveredRow === product.id ? '#f0f0f0' : 'inherit' }}
+                  style={{
+                    backgroundColor: hoveredRow === product.id ? '#000' : 'inherit',
+                    color: hoveredRow === product.id ? '#fff' : 'inherit',
+                  }}
                 >
                   <td>{product.id}</td>
                   <td>{product.name}</td>
@@ -90,9 +93,6 @@ const Principal = () => {
         <div className="col-md-6">
           <div>
             <h2>{editingProduct ? 'Actualizar Producto' : 'Agregar Producto'}</h2>
-            {hoveredRow && (
-              <p className="text-muted">Pase el mouse sobre una fila para resaltarla.</p>
-            )}
             <label>ID: {editingProduct?.id}</label>
             <input
               type="text"
