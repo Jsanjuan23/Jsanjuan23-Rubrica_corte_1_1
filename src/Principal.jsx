@@ -38,9 +38,9 @@ const Principal = () => {
   };
 
   return (
-    <div>
-      <h1>Lista de Productos</h1>
-      <table>
+    <div className="container mt-4">
+      <h1 className="mb-4">Lista de Productos</h1>
+      <table className="table">
         <thead>
           <tr>
             <th>ID</th>
@@ -54,7 +54,9 @@ const Principal = () => {
               <td>{product.id}</td>
               <td>{product.name}</td>
               <td>
-                <button onClick={() => handleDeleteProduct(product.id)}>Eliminar</button>
+                <button className="btn btn-danger" onClick={() => handleDeleteProduct(product.id)}>
+                  Eliminar
+                </button>
               </td>
             </tr>
           ))}
@@ -66,14 +68,19 @@ const Principal = () => {
         <label>ID: {editingProduct?.id}</label>
         <input
           type="text"
+          className="form-control mb-2"
           placeholder="Nombre del producto"
           value={newProductName}
           onChange={e => setNewProductName(e.target.value)}
         />
         {editingProduct ? (
-          <button onClick={handleUpdateProduct}>Actualizar Producto</button>
+          <button className="btn btn-primary" onClick={handleUpdateProduct}>
+            Actualizar Producto
+          </button>
         ) : (
-          <button onClick={handleAddProduct}>Agregar Producto</button>
+          <button className="btn btn-success" onClick={handleAddProduct}>
+            Agregar Producto
+          </button>
         )}
       </div>
     </div>
