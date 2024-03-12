@@ -50,11 +50,14 @@ const Principal = () => {
     setUpdateMessage('Producto eliminado exitosamente.');
   };
 
+  const [hoveredRow, setHoveredRow] = useState(null);
+
   return (
     <div className="container mt-4">
       <div className="row">
         <div className="col-md-6">
           <h1 className="mb-4">Lista de Productos</h1>
+          {updateMessage && <p className="text-muted">{updateMessage}</p>}
           <table className="table">
             <thead>
               <tr>
@@ -65,7 +68,13 @@ const Principal = () => {
             </thead>
             <tbody>
               {products.map(product => (
-                <tr key={product.id} onClick={() => handleEditProduct(product)}>
+                <tr
+                  key={product.id}
+                  onClick={() => handleEditProduct(product)}
+                  onMouseEnter={() => setHoveredRow(product.id)}
+                  onMouseLeave={() => setHoveredRow(null)}
+                  style={{ backgroundColor: hoveredRow === product.id ? '#f0f0f0' : 'inherit' }}
+                >
                   <td>{product.id}</td>
                   <td>{product.name}</td>
                   <td>
@@ -81,6 +90,9 @@ const Principal = () => {
         <div className="col-md-6">
           <div>
             <h2>{editingProduct ? 'Actualizar Producto' : 'Agregar Producto'}</h2>
+            {hoveredRow && (
+              <p className="text-muted">Pase el mouse sobre una fila para resaltarla.</p>
+            )}
             <label>ID: {editingProduct?.id}</label>
             <input
               type="text"
@@ -89,7 +101,6 @@ const Principal = () => {
               value={newProductName}
               onChange={e => setNewProductName(e.target.value)}
             />
-            {updateMessage && <p className="text-muted">{updateMessage}</p>}
             {editingProduct ? (
               <button className="btn btn-primary" onClick={handleUpdateProduct}>
                 Actualizar Producto
