@@ -39,49 +39,54 @@ const Principal = () => {
 
   return (
     <div className="container mt-4">
-      <h1 className="mb-4">Lista de Productos</h1>
-      <table className="table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map(product => (
-            <tr key={product.id} onClick={() => handleEditProduct(product)}>
-              <td>{product.id}</td>
-              <td>{product.name}</td>
-              <td>
-                <button className="btn btn-danger" onClick={() => handleDeleteProduct(product.id)}>
-                  Eliminar
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <div>
-        <h2>{editingProduct ? 'Actualizar Producto' : 'Agregar Producto'}</h2>
-        <label>ID: {editingProduct?.id}</label>
-        <input
-          type="text"
-          className="form-control mb-2"
-          placeholder="Nombre del producto"
-          value={newProductName}
-          onChange={e => setNewProductName(e.target.value)}
-        />
-        {editingProduct ? (
-          <button className="btn btn-primary" onClick={handleUpdateProduct}>
-            Actualizar Producto
-          </button>
-        ) : (
-          <button className="btn btn-success" onClick={handleAddProduct}>
-            Agregar Producto
-          </button>
-        )}
+      <div className="row">
+        <div className="col-md-6">
+          <h1 className="mb-4">Lista de Productos</h1>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map(product => (
+                <tr key={product.id} onClick={() => handleEditProduct(product)}>
+                  <td>{product.id}</td>
+                  <td>{product.name}</td>
+                  <td>
+                    <button className="btn btn-danger" onClick={() => handleDeleteProduct(product.id)}>
+                      Eliminar
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="col-md-6">
+          <div>
+            <h2>{editingProduct ? 'Actualizar Producto' : 'Agregar Producto'}</h2>
+            <label>ID: {editingProduct?.id}</label>
+            <input
+              type="text"
+              className="form-control mb-2"
+              placeholder="Nombre del producto"
+              value={newProductName}
+              onChange={e => setNewProductName(e.target.value)}
+            />
+            {editingProduct ? (
+              <button className="btn btn-primary" onClick={handleUpdateProduct}>
+                Actualizar Producto
+              </button>
+            ) : (
+              <button className="btn btn-success" onClick={handleAddProduct}>
+                Agregar Producto
+              </button>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
